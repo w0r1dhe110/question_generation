@@ -61,7 +61,7 @@ class QGPipeline:
         
         qg_inputs = [example['source_text'] for example in qg_examples]
         questions = self._generate_questions(qg_inputs)
-        output = [{'answer': example['answer'], 'question': que} for example, que in zip(qg_examples, questions)]
+        output = [{'answer': example['answer'], 'question': que, 'sent': example['sent'], 'ans_start_idx': example['ans_start_idx']} for example, que in zip(qg_examples, questions)]
         return output
     
     def _generate_questions(self, inputs):
@@ -149,7 +149,7 @@ class QGPipeline:
                 if self.model_type == "t5":
                     source_text = source_text + " </s>"
                 
-                inputs.append({"answer": answer_text, "source_text": source_text})
+                inputs.append({"answer": answer_text, "source_text": source_text, "ans_start_idx": ans_start_idx, "sent": sent})
         
         return inputs
     
