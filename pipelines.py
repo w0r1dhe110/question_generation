@@ -135,6 +135,7 @@ class QGPipeline:
             if len(answer) == 0: continue
             for answer_text in answer:
                 sent = sents[i]
+                sent_copy = sents[i]
                 sents_copy = sents[:]
                 
                 answer_text = answer_text.strip()
@@ -149,7 +150,7 @@ class QGPipeline:
                 if self.model_type == "t5":
                     source_text = source_text + " </s>"
                 
-                inputs.append({"answer": answer_text, "source_text": source_text, "ans_start_idx": ans_start_idx, "sent": sent})
+                inputs.append({"answer": answer_text, "source_text": source_text, "ans_start_idx": ans_start_idx, "sent": sent_copy})
         
         return inputs
     
