@@ -139,6 +139,7 @@ class QGPipeline:
                 sents_copy = sents[:]
                 
                 answer_text = answer_text.strip()
+                print("answer_text_unfilter:", answer_text)
                 answer_text = answer_text.lstrip('<pad>').strip()
                 print("sent:", sent)
                 print("answer_text:", answer_text)
