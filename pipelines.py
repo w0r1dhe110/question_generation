@@ -139,14 +139,16 @@ class QGPipeline:
                 sents_copy = sents[:]
                 
                 answer_text = answer_text.strip()
-                print("answer_text_unfilter:", answer_text)
+              
                 answer_text = answer_text.lstrip('<pad>').strip()
-                print("sent:", sent)
-                print("answer_text:", answer_text)
-                ans_start_idx = sent.index(answer_text)
+
+                ans_start_idx = sent.find(answer_text)
                 
-                sent = f"{sent[:ans_start_idx]} <hl> {answer_text} <hl> {sent[ans_start_idx + len(answer_text): ]}"
-                sents_copy[i] = sent
+                if ans_start_idx != -1:
+                  sent = f"{sent[:ans_start_idx]} <hl> {answer_text} <hl> {sent[ans_start_idx + len(answer_text): ]}"
+                  sents_copy[i] = sent
+                else:
+                  sents_copy[i] = sent
                 
                 source_text = " ".join(sents_copy)
                 source_text = f"generate question: {source_text}" 
